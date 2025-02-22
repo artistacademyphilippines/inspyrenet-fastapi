@@ -6,7 +6,7 @@ from rembg import remove #rembg AI tool for bg removal
 import base64 #for encode and decode image data
 from io import BytesIO #to convert image to bytes
 
-from transparent_background import Remover
+from transparent-background import Remover
 
 app = FastAPI()
 
