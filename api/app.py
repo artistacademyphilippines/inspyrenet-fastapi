@@ -6,6 +6,8 @@ from rembg import remove #rembg AI tool for bg removal
 import base64 #for encode and decode image data
 from io import BytesIO #to convert image to bytes
 
+from transparent_background import Remover
+
 app = FastAPI()
 
 # Add CORS middleware to allow your frontend to access the FastAPI app
@@ -30,8 +32,9 @@ async def remove_background(request_data: RequestData): #get object and pass it 
     # Decode the base64 string to image
     img_data = base64.b64decode(request_data.data_sent.split(',')[1])
 
+    remover = Remover()
     # Process the image with rembg to remove the background
-    removed_background = remove(img_data, post_process_mask=True)
+    removed_background = remover.process(img_data)
 
     # Convert the result into a binary format
     new_data = BytesIO(removed_background)
