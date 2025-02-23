@@ -2,7 +2,6 @@ from fastapi import FastAPI #import fastAPI
 from pydantic import BaseModel #pydantic is to handle fastAPI request as JSON to object
 from fastapi.middleware.cors import CORSMiddleware #handle CORS
 
-from rembg import remove #rembg AI tool for bg removal
 import base64 #for encode and decode image data
 from io import BytesIO #to convert image to bytes
 
