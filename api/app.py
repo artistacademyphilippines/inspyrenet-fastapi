@@ -28,6 +28,10 @@ class RequestData(BaseModel): #convert JSON to object
 
 async def remove_background(request_data: RequestData): #get object and pass it to these parameters 'request_data' variable
 
+    print(request_data.data_sent)
+    return request_data.data_sent
+
+    '''
     # Decode the base64 string to image
     img_data = base64.b64decode(request_data.data_sent.split(',')[1])
 
@@ -46,3 +50,4 @@ async def remove_background(request_data: RequestData): #get object and pass it 
     data_received = f"data:image/png;base64,{new_base64}"
     
     return {"data_received": data_received}
+    '''
