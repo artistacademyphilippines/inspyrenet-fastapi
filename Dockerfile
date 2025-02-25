@@ -1,9 +1,14 @@
 # Use the official Python 3.13.2 slim image
 FROM python:3.13.2-slim
 
-# Install system dependencies (e.g., libgl1)
+# Install system dependencies (including libgl1 and additional libraries)
 RUN apt-get update && \
-    apt-get install -y libgl1 && \
+    apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender1 && \
     rm -rf /var/lib/apt/lists/*
 
 # Create and set the working directory to /docker inside the container
