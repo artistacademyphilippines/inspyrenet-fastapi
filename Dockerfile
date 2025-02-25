@@ -18,6 +18,9 @@ WORKDIR /docker
 # Copy the requirements.txt file into the /docker directory inside the container
 COPY requirements.txt /docker/
 
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip
+
 # Install Python dependencies
 RUN pip install --no-cache-dir -r /docker/requirements.txt
 
