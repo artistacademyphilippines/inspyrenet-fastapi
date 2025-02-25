@@ -8,8 +8,7 @@ RUN apt-get update && \
     libglib2.0-0 \
     libsm6 \
     libxext6 \
-    libxrender1 \
-    ffmpeg && \
+    libxrender1 && \
     rm -rf /var/lib/apt/lists/*
 
 # Create and set the working directory to /docker inside the container
@@ -18,11 +17,14 @@ WORKDIR /docker
 # Copy the requirements.txt file into the /docker directory inside the container
 COPY requirements.txt /docker/
 
-# Upgrade pip to the latest version
-RUN pip install --upgrade pip
+# Create a virtual environment in the container
+RUN python -m venv /venv
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r /docker/requirements.txt
+# Activate the virtual environment and upgrade pip inside the virtual environment
+RUN /venv/bin/pip install --upgrade pip
+
+# Install Python dependencies within the virtual environment
+RUN /venv/bin/pip install --no-cache-dir -r /docker/requirements.txt
 
 # Copy the application code (api folder) into the /docker/api directory inside the container
 COPY api /docker/api
@@ -30,5 +32,5 @@ COPY api /docker/api
 # Expose port 8080 for FastAPI to run
 EXPOSE 8080
 
-# Command to run FastAPI app on port 8080
-CMD ["uvicorn", "docker.api.app:app", "--host", "0.0.0.0", "--port", "8080"]
+# Command to run FastAPI app on port 8080 using the virtual environment
+CMD ["/venv/bin/uvicorn", "docker.api.app:app", "--host", "0.0.0.0", "--port", "8080"]
