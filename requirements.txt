@@ -1,3 +1,3 @@
 fastapi==0.115.8
 uvicorn==0.34.0
-git+https://github.com/plemeri/transparent-background.git
+https://github.com/plemeri/transparent-background.git
